@@ -25,6 +25,10 @@ public class SceneSwitchingController {
     root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("add-account-view.fxml")));
     scene = new Scene(root);
 
+    // request focus on the Account Name field
+    TextField textFieldToFocus = (TextField) scene.lookup("#accountNameField");
+    Platform.runLater(textFieldToFocus :: requestFocus);
+
     stage = new Stage();
     stage.setScene(scene);
     stage.initStyle(StageStyle.UTILITY);
