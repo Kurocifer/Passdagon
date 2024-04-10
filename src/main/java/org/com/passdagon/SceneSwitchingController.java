@@ -33,7 +33,6 @@ public class SceneSwitchingController {
     stage.setScene(scene);
     stage.initStyle(StageStyle.UTILITY);
     stage.show();
-
   }
 
 }

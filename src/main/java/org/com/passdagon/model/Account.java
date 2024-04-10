@@ -1,14 +1,36 @@
 package org.com.passdagon.model;
 
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
+
 import java.net.URL;
-import java.util.Date;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.Locale;
 
 public class Account {
 
   private URL accountName;
   private String username;
-  private String accountPassword;
-  private Date dateModified;
+  private String password;
+  private LocalDate dateModified;
+
+  private StringProperty accountNameProperty;
+  private StringProperty usernameProperty;
+  private StringProperty dateModifiedProperty;
+
+
+  public Account(URL accountName, String username, String password, LocalDate dateModified) {
+    this.accountName = accountName;
+    this.username = username;
+    this.password = password;
+    this.dateModified = dateModified;
+
+    accountNameProperty = new SimpleStringProperty(accountName.toString());
+    usernameProperty = new SimpleStringProperty(username);
+    dateModifiedProperty = new SimpleStringProperty(dateModified.toString());
+
+  }
 
   public URL getAccountName() {
     return accountName;
@@ -26,20 +48,35 @@ public class Account {
     this.username = username;
   }
 
-  public String getAccountPassword() {
-    return accountPassword;
+  public String getPassword() {
+    return password;
   }
 
-  public void setAccountPassword(String accountPassword) {
-    this.accountPassword = accountPassword;
+  public void setPassword(String password) {
+    this.password = password;
   }
-
-  public Date getDateModified() {
+public StringProperty usernamePropertyProperty() {
+    return usernameProperty;
+  }
+  public LocalDate getDateModified() {
     return dateModified;
   }
 
-  public void setDateModified(Date dateModified) {
+  public void setDateModified(LocalDate dateModified) {
     this.dateModified = dateModified;
+  }
+
+
+  public StringProperty accountNameProperty() {
+    return accountNameProperty;
+  }
+
+  public StringProperty usernameProperty() {
+    return usernameProperty;
+  }
+
+  public StringProperty dateModifiedProperty() {
+    return dateModifiedProperty;
   }
 
   @Override
@@ -47,7 +84,7 @@ public class Account {
     return "Account{" +
             "accountName=" + accountName +
             ", username='" + username + '\'' +
-            ", password='" + accountPassword + '\'' +
+            ", password='" + password + '\'' +
             ", dateModified=" + dateModified +
             '}';
   }

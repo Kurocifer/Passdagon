@@ -1,13 +1,26 @@
 package org.com.passdagon.model;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+
+import java.util.ArrayList;
 import java.util.List;
 
 public class User {
 
+  private static User userInstance;
   private String name;
   private String password;
-  private List<Account> accounts;
+  private ObservableList<Account> accounts = FXCollections.observableArrayList();
+  private Account account;
 
+  private User() {}
+  public static User getInstance() {
+    if(userInstance == null)
+      userInstance = new User();
+
+    return userInstance;
+  }
   public String getName() {
     return name;
   }
@@ -24,12 +37,26 @@ public class User {
     this.password = password;
   }
 
-  public List<Account> getAccounts() {
+  public ObservableList<Account> getAccounts() {
     return accounts;
   }
 
-  public void setAccounts(List<Account> accounts) {
+  public void setAccounts(ObservableList<Account> accounts) {
     this.accounts = accounts;
+  }
+
+  public void addAccount(Account account) {
+    System.out.println("in user");
+    accounts.add(account);
+    System.out.println("in user: " + accounts);
+  }
+
+  public void setNewAccount(Account newAccount)  {
+    this.account = newAccount;
+  }
+
+  public Account getNewAccount() {
+    return account;
   }
 
   @Override
