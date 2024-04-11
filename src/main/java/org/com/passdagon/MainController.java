@@ -27,7 +27,7 @@ public class MainController {
   private Button refreshButton;
 
   @FXML
-  private TableColumn<Account, LocalDate> dateModifiedColumn;
+  private TableColumn<Account, String> dateModifiedColumn;
 
   @FXML
   private AnchorPane mainWindow;
@@ -44,8 +44,6 @@ public class MainController {
   @FXML
   void addAccount(ActionEvent event) throws IOException {
     sceneSwitchingController.switchToMainWindow(event);
-
-    System.out.println("in main scene: " + accounts);
   }
 
   @FXML
@@ -59,16 +57,14 @@ public class MainController {
     Account newAccount = User.getInstance().getNewAccount();
 
     System.out.println(newAccount);
-    accounts.add(newAccount);
+   // accounts.add(newAccount);
     System.out.println(accounts);
     tableView.setItems(accounts);
     accountColumn.setCellValueFactory(f -> f.getValue().accountNameProperty());
     usernameColumn.setCellValueFactory(f -> f.getValue().usernameProperty());
-   // dateModifiedColumn.setCellValueFactory(f -> f.getValue().dateModifiedProperty());
+    dateModifiedColumn.setCellValueFactory(f -> f.getValue().dateModifiedProperty());
 
     tableView.refresh();
 
   }
-
-
 }
