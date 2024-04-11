@@ -2,12 +2,11 @@ package org.com.passdagon;
 
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
-import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.TextField;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
@@ -28,6 +27,16 @@ public class SceneSwitchingController {
     // request focus on the Account Name field
     TextField textFieldToFocus = (TextField) scene.lookup("#accountNameField");
     Platform.runLater(textFieldToFocus :: requestFocus);
+
+    stage = new Stage();
+    stage.setScene(scene);
+    stage.initStyle(StageStyle.UTILITY);
+    stage.show();
+  }
+
+  public void switchToAccountDetailsWindow(MouseEvent event) throws IOException {
+    root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("account-details-view.fxml")));
+    scene = new Scene(root);
 
     stage = new Stage();
     stage.setScene(scene);
