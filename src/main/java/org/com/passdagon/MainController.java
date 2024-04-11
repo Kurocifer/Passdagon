@@ -3,10 +3,16 @@ package org.com.passdagon;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.*;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.event.ActionEvent;
+import javafx.stage.Stage;
 import org.com.passdagon.model.Account;
 import org.com.passdagon.model.User;
 
@@ -100,16 +106,19 @@ public class MainController {
           String  an = String.valueOf(tableView.getItems().get(myIndex).getDateModified());
 
           try {
-            URL sa;
 
             URI uri = new URI(ac);
-            sa = uri.toURL();
+            URL url = uri.toURL();
 
-            Account account = new Account(sa, id, "random", LocalDate.parse(an));
+            System.out.println("url: " + url);
+            System.out.println("here");
+            Account account = new Account(url, id, "random", LocalDate.parse(an));
 
-            sceneSwitchingController.switchToAccountDetailsWindow(event);
-          } catch (URISyntaxException  | IOException ex) {
-            System.out.println("Invalid URL: Account Name must be a valid URL");
+            System.out.println("down");
+            User.getInstance().setNewAccount(account);
+            setupAndLoadDetailsViewWindow();
+          } catch (URISyntaxException | IOException ex) {
+            //System.out.println("Invalid URL: Account must be a valid URL");
             ex.printStackTrace();
           }
           System.out.println("id: " + id);
@@ -118,5 +127,18 @@ public class MainController {
 
       return myRow;
     });
+  }
+
+  private void setupAndLoadDetailsViewWindow() throws IOException {
+    FXMLLoader loader = new FXMLLoader(getClass().getResource("account-details-view.fxml"));
+    Parent root = loader.load();
+
+    ShowAccountDetailsController showAccountDetailsController = loader.getController();
+    showAccountDetailsController.setAll();
+
+    Scene scene = new Scene(root);
+    Stage stage = new Stage();
+    stage.setScene(scene);
+    stage.show();
   }
 }
