@@ -1,9 +1,10 @@
 package org.com.passdagon;
 
+import javafx.beans.binding.Bindings;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;
+import javafx.fxml.Initializable;
+import javafx.scene.control.*;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.event.ActionEvent;
 import javafx.stage.Stage;
@@ -16,8 +17,9 @@ import java.net.URISyntaxException;
 import java.net.URL;
 import java.time.LocalDate;
 import java.util.Date;
+import java.util.ResourceBundle;
 
-public class AddAccountController {
+public class AddAccountController implements Initializable {
   @FXML
   private TextField accountNameField;
 
@@ -32,6 +34,30 @@ public class AddAccountController {
 
   @FXML
   private TextField usernameField;
+
+  @FXML
+  private Label shownPassword;
+
+  @FXML
+  private ToggleButton showPasswordToggleButton;
+
+
+  @FXML
+  void passwordFieldKeyTyped(KeyEvent event) {
+    shownPassword.textProperty().bind(Bindings.concat(passwordField.getText()));
+  }
+
+  @FXML
+  void togglePasswordVisibility(ActionEvent event) {
+    if(showPasswordToggleButton.isSelected()) {
+      shownPassword.setVisible(true);
+      shownPassword.textProperty().bind(Bindings.concat(passwordField.getText()));
+      showPasswordToggleButton.setText("HIde");
+    } else {
+      shownPassword.setVisible(false);
+      showPasswordToggleButton.setText("Show");
+    }
+  }
 
   private Stage stage;
 
@@ -102,4 +128,8 @@ public class AddAccountController {
 
   }
 
+  @Override
+  public void initialize(URL url, ResourceBundle resourceBundle) {
+    shownPassword.setVisible(false);
+  }
 }

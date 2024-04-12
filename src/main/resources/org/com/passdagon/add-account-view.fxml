@@ -4,6 +4,7 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToggleButton?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
@@ -18,7 +19,7 @@
             <Font size="30.0" />
          </font>
       </Label>
-      <PasswordField fx:id="passwordField" layoutX="157.0" layoutY="264.0" prefHeight="24.0" prefWidth="449.0" />
+      <PasswordField fx:id="passwordField" layoutX="157.0" layoutY="264.0" onKeyTyped="#passwordFieldKeyTyped" prefHeight="24.0" prefWidth="449.0" />
       <TextField fx:id="accountNameField" layoutX="157.0" layoutY="134.0" prefHeight="24.0" prefWidth="449.0" />
       <TextField fx:id="usernameField" layoutX="157.0" layoutY="196.0" prefHeight="24.0" prefWidth="449.0" />
       <Line endX="547.5" layoutX="111.0" layoutY="57.0" startX="-104.0" />
@@ -27,5 +28,7 @@
             <Font size="17.0" />
          </font>
       </Button>
+      <ToggleButton fx:id="showPasswordToggleButton" layoutX="613.0" layoutY="264.0" mnemonicParsing="false" onAction="#togglePasswordVisibility" text="Show" />
+      <Label fx:id="shownPassword" layoutX="157.0" layoutY="288.0" onKeyTyped="#passwordFieldKeyTyped" text="password" />
    </children>
 </AnchorPane>
