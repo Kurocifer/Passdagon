@@ -36,16 +36,24 @@ public class ShowAccountDetailsController implements Initializable {
   @FXML
   private ToggleButton setEditButton;
 
+  @FXML
+  private Button saveButton;
+
   private boolean edit = false;
+  private URL initializableUrl;
+  private ResourceBundle initializableResourceBundle;
 
   @FXML
   void editable(ActionEvent event) {
     if(setEditButton.isSelected()) {
       edit = true;
       setEditButton.setText("Cancel");
+      saveButton.setVisible(true);
+      makeFieldsEditable(edit);
     } else {
       edit = false;
       setEditButton.setText("Edit");
+      initialize(initializableUrl, initializableResourceBundle);
     }
   }
 
@@ -81,15 +89,30 @@ public class ShowAccountDetailsController implements Initializable {
 
   @Override
   public void initialize(URL url, ResourceBundle resourceBundle) {
-    shownPassword.setVisible(false);
-    passwordField.setEditable(false);
-    accountNameField.setEditable(false);
+    // setting this two variables for later use
+    initializableUrl = url;
+    initializableResourceBundle = resourceBundle;
+
+
+    makeFieldsEditable(false);
     usernameField.setEditable(false);
+    dateModifiedTextArea.setEditable(false);
+//    System.out.println("in initailisavle - URL, resourceBundle: " + url +  resourceBundle);
+
 
     Account account = User.getInstance().getNewAccount();
     accountNameField.setText(account.getAccountName().toString());
     usernameField.setText(account.getUsername());
     passwordField.setText(account.getPassword());
     dateModifiedTextArea.setText("Date modified: " + account.getDateModified());
+    shownPassword.setVisible(false);
+
+    saveButton.setVisible(false);
+  }
+
+  private void makeFieldsEditable(boolean b) {
+    passwordField.setEditable(b);
+    accountNameField.setEditable(b);
+    usernameField.setEditable(b);
   }
 }
