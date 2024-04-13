@@ -46,14 +46,17 @@ public class User {
   }
 
   public void addAccount(Account account) {
-    System.out.println("in user");
     accounts.add(account);
-    System.out.println("in user: " + accounts);
   }
 
   public void setNewAccount(Account newAccount)  {
     this.account = newAccount;
   }
+
+  public void deleteAccount(int accountIndex) {
+    accounts.remove(accountIndex);
+  }
+
 
   public Account getNewAccount() {
     return account;

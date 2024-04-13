@@ -7,11 +7,17 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.text.TextFlow;
+import org.com.passdagon.exceptions.AccountNotPresentException;
 import org.com.passdagon.model.Account;
 import org.com.passdagon.model.User;
+import org.com.passdagon.utilities.GeneralUtilities;
 
 import java.io.InterruptedIOException;
+import java.net.MalformedURLException;
+import java.net.URISyntaxException;
 import java.net.URL;
+import java.time.LocalDate;
+import java.util.List;
 import java.util.ResourceBundle;
 
 public class ShowAccountDetailsController implements Initializable {
@@ -38,6 +44,8 @@ public class ShowAccountDetailsController implements Initializable {
 
   @FXML
   private Button saveButton;
+
+  private Account account;
 
   private boolean edit = false;
   private URL initializableUrl;
@@ -100,7 +108,7 @@ public class ShowAccountDetailsController implements Initializable {
 //    System.out.println("in initailisavle - URL, resourceBundle: " + url +  resourceBundle);
 
 
-    Account account = User.getInstance().getNewAccount();
+    account = User.getInstance().getNewAccount();
     accountNameField.setText(account.getAccountName().toString());
     usernameField.setText(account.getUsername());
     passwordField.setText(account.getPassword());
@@ -114,5 +122,53 @@ public class ShowAccountDetailsController implements Initializable {
     passwordField.setEditable(b);
     accountNameField.setEditable(b);
     usernameField.setEditable(b);
+  }
+
+  @FXML
+  void edit(ActionEvent event) throws MalformedURLException, URISyntaxException, AccountNotPresentException {
+    System.out.println("Edit button clicked");
+    List<Account> accounts = User.getInstance().getAccounts();
+    System.out.println("Accounts: " + MainController.accounts);
+    System.out.println("account: " + account);
+
+    URL editedAccountName = GeneralUtilities.stringToURL(accountNameField.getText());
+    String EditedUsername = usernameField.getText();
+    String editedPassword = passwordField.getText();
+
+    Account editAccount = new Account(editedAccountName, EditedUsername, EditedUsername, LocalDate.now());
+
+
+    int indexOfAccountToEdit = MainController.accounts.indexOf(account);
+    System.out.println(indexOfAccountToEdit);
+
+    if (indexOfAccountToEdit != -1) {
+//      account = accounts.get(indexOfAccountToEdit);
+
+//      account.setAccountName(GeneralUtilities.stringToURL(accountNameField.getText()));
+//      account.setUsername(usernameField.getText());
+//      account.setPassword(passwordField.getText());
+//      account.setDateModified(LocalDate.now());
+
+      System.out.println("edited account: " + account);
+
+//      System.out.println("User instance: " + User.getInstance().getAccounts());
+//      User.getInstance().deleteAccount(indexOfAccountToEdit);
+
+     // User.getInstance().deleteAccount(indexOfAccountToEdit);
+     // User.getInstance().setNewAccount(account);
+      //User.getInstance().addAccount(account);
+
+      MainController.accounts.remove(indexOfAccountToEdit);
+      MainController.accounts.add(editAccount);
+      System.out.println("new account list: " + accounts);
+
+      System.out.println("Edited");
+
+      saveButton.setVisible(false);
+    }
+    else {
+      System.out.println("Not found");
+      throw new AccountNotPresentException();
+    }
   }
 }

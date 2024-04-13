@@ -47,7 +47,7 @@ public class MainController {
   private TableColumn<Account, String> usernameColumn;
 
   SceneSwitchingController sceneSwitchingController = new SceneSwitchingController();
-  private static ObservableList<Account> accounts;
+  public static ObservableList<Account> accounts = FXCollections.observableArrayList();
   private int myIndex;
   private String  id;
 
@@ -59,35 +59,36 @@ public class MainController {
 
   @FXML
   public  void refresh(ActionEvent event) {
-    accounts = FXCollections.observableArrayList();
     System.out.println("in refresh: " + accounts);
 
     //List<Account> fullaccounts = User.getInstance().getAccounts();
-    accounts = User.getInstance().getAccounts();
+//    accounts = User.getInstance().getAccounts();
+//
+//    Account newAccount = User.getInstance().getNewAccount();
 
-    Account newAccount = User.getInstance().getNewAccount();
-
-    System.out.println(newAccount);
-   // accounts.add(newAccount);
-    System.out.println(accounts);
-    //table();
+//    System.out.println(newAccount);
+//   // accounts.add(newAccount);
+//    System.out.println(accounts);
+    table();
 
   }
 
   private void table() {
 
-    accounts = FXCollections.observableArrayList();
-    System.out.println("in refresh: " + accounts);
+//    accounts = FXCollections.observableArrayList();
+    //System.out.println("in refresh: " + accounts);
 
     //List<Account> fullaccounts = User.getInstance().getAccounts();
-    accounts = User.getInstance().getAccounts();
+//    accounts = null;
+//    accounts = User.getInstance().getAccounts();
 
-    Account newAccount = User.getInstance().getNewAccount();
+//    Account newAccount = User.getInstance().getNewAccount();
+//    System.out.println("new account in table: " + newAccount);
 
-    System.out.println(newAccount);
-    // accounts.add(newAccount);
-    System.out.println(accounts);
-    Collections.reverse(accounts);
+//    System.out.println(newAccount);
+    //accounts.add(newAccount);
+    System.out.println("in table" + accounts);
+    //Collections.reverse(accounts);
     tableView.setItems(accounts);
     accountColumn.setCellValueFactory(f -> f.getValue().accountNameProperty());
     usernameColumn.setCellValueFactory(f -> f.getValue().usernameProperty());
@@ -107,8 +108,8 @@ public class MainController {
 
           try {
 
-            URI uri = new URI(ac);
-            URL url = uri.toURL();
+
+            URL url = GeneralUtilities.stringToURL(ac);
 
             System.out.println("url: " + url);
             System.out.println("here");

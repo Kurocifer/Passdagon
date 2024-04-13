@@ -116,7 +116,9 @@ public class AddAccountController implements Initializable {
 
       account = new Account(urlAccountName, username, password, LocalDate.now());
 
-      User.getInstance().addAccount(account);
+//      User.getInstance().setNewAccount(account);
+//      User.getInstance().addAccount(account);
+      MainController.accounts.add(account);
     } catch (URISyntaxException | MalformedURLException ex) {
       System.out.println("Invalid URL: Account Name must be a valid URL");
       ex.printStackTrace();

@@ -7,6 +7,7 @@ import java.net.URL;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Locale;
+import java.util.Objects;
 
 public class Account {
 
@@ -77,6 +78,19 @@ public StringProperty usernamePropertyProperty() {
 
   public StringProperty dateModifiedProperty() {
     return dateModifiedProperty;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    Account account = (Account) o;
+    return Objects.equals(accountName, account.accountName) && Objects.equals(username, account.username) && Objects.equals(password, account.password) && Objects.equals(dateModified, account.dateModified);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(accountName, username, password, dateModified);
   }
 
   @Override
