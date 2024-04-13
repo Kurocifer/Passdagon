@@ -14,6 +14,7 @@ import javafx.stage.Stage;
 import org.com.passdagon.exceptions.AccountNotPresentException;
 import org.com.passdagon.model.Account;
 import org.com.passdagon.model.User;
+import org.com.passdagon.utilities.GeneralUtilities;
 
 import java.io.IOException;
 import java.net.URI;
@@ -112,7 +113,8 @@ public class MainController {
             System.out.println("url: " + url);
             System.out.println("here");
 
-            String pass = filterAccountByAccountNameAndUsername(url, id).getPassword();
+            String pass = GeneralUtilities.filterAccountByAccountNameAndUsername(url, id, accounts)
+                            .getPassword();
             Account account = new Account(url, id, pass, LocalDate.parse(an));
 
             System.out.println("down");
@@ -143,19 +145,20 @@ public class MainController {
     stage.show();
   }
 
-  private Account filterAccountByAccountNameAndUsername(
-          URL accountName, String username) throws AccountNotPresentException {
-
-    Optional<Account> filteredAccount = accounts.stream()
-            .filter(account -> account.getAccountName().equals(accountName)
-            && account.getUsername().equals(username))
-            //.filter(account -> account.getUsername().equals(username))
-            .findFirst();
-
-    if(filteredAccount.isPresent()) {
-      return filteredAccount.get();
-    } else {
-      throw new AccountNotPresentException();
-    }
-  }
+//  private Account filterAccountByAccountNameAndUsername(
+//          URL accountName, String username,
+//          ObservableList<Account> accounts) throws AccountNotPresentException {
+//
+//    Optional<Account> filteredAccount = accounts.stream()
+//            .filter(account -> account.getAccountName().equals(accountName)
+//            && account.getUsername().equals(username))
+//            //.filter(account -> account.getUsername().equals(username))
+//            .findFirst();
+//
+//    if(filteredAccount.isPresent()) {
+//      return filteredAccount.get();
+//    } else {
+//      throw new AccountNotPresentException();
+//    }
+//  }
 }
