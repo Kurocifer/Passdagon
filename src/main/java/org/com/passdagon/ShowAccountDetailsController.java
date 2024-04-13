@@ -4,11 +4,9 @@ import javafx.beans.binding.Bindings;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Label;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;
-import javafx.scene.control.ToggleButton;
+import javafx.scene.control.*;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.text.TextFlow;
 import org.com.passdagon.model.Account;
 import org.com.passdagon.model.User;
 
@@ -31,7 +29,25 @@ public class ShowAccountDetailsController implements Initializable {
   private TextField usernameField;
   @FXML
   private Label shownPassword;
-  int n = 0;
+
+  @FXML
+  private TextArea dateModifiedTextArea;
+
+  @FXML
+  private ToggleButton setEditButton;
+
+  private boolean edit = false;
+
+  @FXML
+  void editable(ActionEvent event) {
+    if(setEditButton.isSelected()) {
+      edit = true;
+      setEditButton.setText("Cancel");
+    } else {
+      edit = false;
+      setEditButton.setText("Edit");
+    }
+  }
 
   @FXML
   void passwordFieldKeyTyped(KeyEvent event) {
@@ -54,16 +70,26 @@ public class ShowAccountDetailsController implements Initializable {
 
   }
 
-  public void setAll() {
-    System.out.println("in setall");
-    Account account = User.getInstance().getNewAccount();
-    accountNameField.setText(account.getAccountName().toString());
-    usernameField.setText(account.getUsername());
-    passwordField.setText(account.getPassword());
-  }
+//  public void setAll() {
+//    System.out.println("in setall");
+////    Account account = User.getInstance().getNewAccount();
+////    accountNameField.setText(account.getAccountName().toString());
+////    usernameField.setText(account.getUsername());
+////    passwordField.setText(account.getPassword());
+////    dateModifiedTextArea.setText("Date modified: " + account.getDateModified());
+//  }
 
   @Override
   public void initialize(URL url, ResourceBundle resourceBundle) {
     shownPassword.setVisible(false);
+    passwordField.setEditable(false);
+    accountNameField.setEditable(false);
+    usernameField.setEditable(false);
+
+    Account account = User.getInstance().getNewAccount();
+    accountNameField.setText(account.getAccountName().toString());
+    usernameField.setText(account.getUsername());
+    passwordField.setText(account.getPassword());
+    dateModifiedTextArea.setText("Date modified: " + account.getDateModified());
   }
 }
