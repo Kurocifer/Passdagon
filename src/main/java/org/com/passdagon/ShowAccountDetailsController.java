@@ -135,7 +135,7 @@ public class ShowAccountDetailsController implements Initializable {
     String EditedUsername = usernameField.getText();
     String editedPassword = passwordField.getText();
 
-    Account editAccount = new Account(editedAccountName, EditedUsername, EditedUsername, LocalDate.now());
+    Account editedAccount = new Account(editedAccountName, EditedUsername, EditedUsername, LocalDate.now());
 
 
     int indexOfAccountToEdit = MainController.accounts.indexOf(account);
@@ -154,12 +154,12 @@ public class ShowAccountDetailsController implements Initializable {
 //      System.out.println("User instance: " + User.getInstance().getAccounts());
 //      User.getInstance().deleteAccount(indexOfAccountToEdit);
 
-     // User.getInstance().deleteAccount(indexOfAccountToEdit);
-     // User.getInstance().setNewAccount(account);
-      //User.getInstance().addAccount(account);
+      User.getInstance().deleteAccount(indexOfAccountToEdit);
+      User.getInstance().setNewAccount(editedAccount);
+      User.getInstance().addAccount(editedAccount);
 
       MainController.accounts.remove(indexOfAccountToEdit);
-      MainController.accounts.add(editAccount);
+      MainController.accounts.add(editedAccount);
       System.out.println("new account list: " + accounts);
 
       System.out.println("Edited");
