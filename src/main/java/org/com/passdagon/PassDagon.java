@@ -20,7 +20,7 @@ public class PassDagon extends Application {
 
     Path homDir = Paths.get(System.getProperty("user.home"));
 
-    SceneSwitchingController sceneSwitchingController = new SceneSwitchingController();
+    //SceneSwitchingController sceneSwitchingController = new SceneSwitchingController();
 
     //File file = new File(homDir, ".passdagon/passdagon.vx");
     Path filePath = homDir.resolve(".passdagon").resolve("passdagon.vx");
