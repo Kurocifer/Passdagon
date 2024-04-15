@@ -1,10 +1,13 @@
 package org.com.passdagon;
 
+import javafx.beans.binding.Bindings;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.input.KeyEvent;
+import org.com.passdagon.exceptions.PasswordMismatchException;
+import org.com.passdagon.model.User;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -45,27 +48,47 @@ public class SignInController implements Initializable {
 
   @FXML
   void confirmPasswordFieldKeyTyped(KeyEvent event) {
+    shownConfirmedPassword.textProperty().bind(Bindings.concat(confirmedPasswordField.getText()));
 
   }
 
   @FXML
   void mainPasswordFieldKeyTyped(KeyEvent event) {
-
+    shownPassword.textProperty().bind(Bindings.concat(mainPasswordField.getText()));
   }
 
   @FXML
-  void save(ActionEvent event) {
-
+  void save(ActionEvent event) throws PasswordMismatchException {
+    if(mainPasswordField.getText().equals(confirmedPasswordField.getText())) {
+      String password = mainPasswordField.getText();
+      User.getInstance().setPassword(password);
+    } else {
+      throw new PasswordMismatchException();
+    }
   }
 
   @FXML
   void toggleConfirmPasswordVisibility(ActionEvent event) {
-
+    if(confirmPasswordToggleButton.isSelected()) {
+      shownConfirmedPassword.setVisible(true);
+      confirmPasswordToggleButton.setText("Hide");
+      shownConfirmedPassword.textProperty().bind(Bindings.concat(confirmedPasswordField.getText()));
+    } else {
+      shownConfirmedPassword.setVisible(false);
+      confirmPasswordToggleButton.setText("Hide");
+    }
   }
 
   @FXML
   void toggleMainPasswordVisibility(ActionEvent event) {
-
+    if(mainPasswordToggleButton.isSelected()) {
+      shownPassword.setVisible(true);
+      mainPasswordToggleButton.setText("Hide");
+      shownPassword.textProperty().bind(Bindings.concat(mainPasswordField.getText()));
+    } else {
+      shownPassword.setVisible(false);
+      mainPasswordToggleButton.setText("Show");
+    }
   }
 
   @Override
