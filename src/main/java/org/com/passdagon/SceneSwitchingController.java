@@ -5,6 +5,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
@@ -37,6 +38,19 @@ public class SceneSwitchingController {
   public void switchToAccountDetailsWindow(MouseEvent event) throws IOException {
     root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("account-details-view.fxml")));
     scene = new Scene(root);
+
+    stage = new Stage();
+    stage.setScene(scene);
+    stage.initStyle(StageStyle.UTILITY);
+    stage.show();
+  }
+
+  public void switchToSignInWindow(ActionEvent event) throws IOException {
+    root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("sign-in-view.fxml")));
+    scene = new Scene(root);
+
+//    PasswordField focusField = (PasswordField) scene.lookup("#mainPasswordField");
+//    Platform.runLater(focusField :: requestFocus);
 
     stage = new Stage();
     stage.setScene(scene);
