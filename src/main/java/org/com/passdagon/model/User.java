@@ -10,7 +10,7 @@ public class User {
 
   private static User userInstance;
   private String name;
-  private String password;
+  private String password = null;
   private ObservableList<Account> accounts = FXCollections.observableArrayList();
   private Account account;
 

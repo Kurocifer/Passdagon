@@ -12,9 +12,11 @@ import javafx.scene.layout.AnchorPane;
 import javafx.event.ActionEvent;
 import javafx.stage.Stage;
 import org.com.passdagon.exceptions.AccountNotPresentException;
+import org.com.passdagon.exceptions.PasswordMismatchException;
 import org.com.passdagon.model.Account;
 import org.com.passdagon.model.User;
 import org.com.passdagon.utilities.GeneralUtilities;
+import org.com.passdagon.utilities.LoginUtilities;
 
 import java.io.IOException;
 import java.net.URI;
@@ -102,12 +104,13 @@ public class MainController {
         if (event.getClickCount() == 2 && (!myRow.isEmpty())) {
           myIndex = tableView.getSelectionModel().getSelectedIndex();
 
+
+
           id = String.valueOf(tableView.getItems().get(myIndex).getUsername());
           String ac = String.valueOf(tableView.getItems().get(myIndex).getAccountName());
           String  an = String.valueOf(tableView.getItems().get(myIndex).getDateModified());
 
           try {
-
 
             URL url = GeneralUtilities.stringToURL(ac);
 
@@ -120,8 +123,9 @@ public class MainController {
 
             System.out.println("down");
             User.getInstance().setNewAccount(account);
-            loadDetailsViewWindow();
-          } catch (URISyntaxException | IOException | AccountNotPresentException ex) {
+
+            loadRequestPasswordWindow();
+          } catch (URISyntaxException | IOException | AccountNotPresentException | PasswordMismatchException ex) {
             //System.out.println("Invalid URL: Account must be a valid URL");
             ex.printStackTrace();
           }
@@ -133,7 +137,7 @@ public class MainController {
     });
   }
 
-  private void loadDetailsViewWindow() throws IOException {
+  private void loadDetailsViewWindow() throws IOException, PasswordMismatchException {
     FXMLLoader loader = new FXMLLoader(getClass().getResource("account-details-view.fxml"));
     Parent root = loader.load();
 
@@ -143,7 +147,27 @@ public class MainController {
     Scene scene = new Scene(root);
     Stage stage = new Stage();
     stage.setScene(scene);
-    stage.show();
+
+    FXMLLoader lLoader = new FXMLLoader(getClass().getResource("request-password-view.fxml"));
+    Parent rRoot = lLoader.load();
+
+    Scene sScene = new Scene(rRoot);
+    Stage sStage = new Stage();
+    sStage.setScene(sScene);
+    sStage.show();
+
+    sStage.setOnCloseRequest(event -> {
+      System.out.println("returned");
+      if(LoginUtilities.validatePassword(LoginUtilities.password)) {
+        System.out.println("in if");
+        LoginUtilities.password = null;
+        stage.show();
+      } else {
+        LoginUtilities.password = null;
+      }
+
+
+    });
   }
 
 //  private Account filterAccountByAccountNameAndUsername(
@@ -162,4 +186,24 @@ public class MainController {
 //      throw new AccountNotPresentException();
 //    }
 //  }
+private void loadRequestPasswordWindow() throws IOException, PasswordMismatchException {
+  FXMLLoader loader = new FXMLLoader(getClass().getResource("request-password-view.fxml"));
+  Parent root = loader.load();
+
+  Scene scene = new Scene(root);
+  Stage stage = new Stage();
+  stage.setScene(scene);
+  stage.show();
+
+  System.out.println("returned");
+  if(!LoginUtilities.validatePassword(LoginUtilities.password)) {
+    System.out.println("in if");
+    LoginUtilities.password = null;
+    throw new PasswordMismatchException();
+
+  }
+  LoginUtilities.password = null;
+  loadDetailsViewWindow();
+}
+
 }

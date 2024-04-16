@@ -4,7 +4,12 @@ import org.com.passdagon.model.User;
 
 public class LoginUtilities {
 
-  public static boolean validatePassword(String password) {
-    return User.getInstance().getPassword().equals(password);
+  public static String password = null;
+  public static boolean validatePassword(String loginPassword) {
+    if(User.getInstance().getPassword().equals(loginPassword)) {
+      password = loginPassword;
+      return true;
+    }
+    return false;
   }
 }

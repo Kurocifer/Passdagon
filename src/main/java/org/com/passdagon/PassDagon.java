@@ -4,8 +4,12 @@ import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import org.com.passdagon.model.User;
+import org.com.passdagon.utilities.LoginUtilities;
 
 import java.nio.file.Files;
 import java.io.IOException;
@@ -27,10 +31,7 @@ public class PassDagon extends Application {
 
     boolean exists = Files.exists(filePath);
     if(exists) {
-      FXMLLoader fxmlLoader = new FXMLLoader(PassDagon.class.getResource("main-scene.fxml"));
-      Scene scene = new Scene(fxmlLoader.load());
-      stage.setScene(scene);
-      stage.show();
+      loadMainWindow(stage);
     } else {
       System.out.println("Could not find data file on your computer.!");
       System.out.println("It may have been moved to a different location in this case locate the file and move it " +
@@ -42,6 +43,26 @@ public class PassDagon extends Application {
       Scene scene = new Scene(fxmlLoader.load());
       stage.setScene(scene);
       stage.show();
+
+      stage.setOnCloseRequest(event ->  {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Close");
+        alert.setHeaderText("You're about to quit");
+        alert.setContentText("Any data saved will be used for authentication to your data");
+
+        if(alert.showAndWait().get() == ButtonType.OK && !(User.getInstance().getPassword().isEmpty())) {
+          try {
+            event.consume();
+            stage.close();
+            loadMainWindow(new Stage());
+          } catch (IOException e) {
+            throw new RuntimeException(e);
+          }
+        } else {
+          event.consume();
+        }
+      });
+
     }
   }
 
@@ -65,5 +86,12 @@ public class PassDagon extends Application {
 //
 //      sceneSwitchingController.switchToSignInWindow(new ActionEvent());
 //    }
+  }
+
+  public void loadMainWindow(Stage stage) throws IOException {
+    FXMLLoader fxmlLoader = new FXMLLoader(PassDagon.class.getResource("main-scene.fxml"));
+    Scene scene = new Scene(fxmlLoader.load());
+    stage.setScene(scene);
+    stage.show();
   }
 }
