@@ -1,5 +1,6 @@
 package org.com.passdagon;
 
+import javafx.animation.PauseTransition;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -11,6 +12,7 @@ import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.event.ActionEvent;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 import org.com.passdagon.exceptions.AccountNotPresentException;
 import org.com.passdagon.exceptions.PasswordMismatchException;
 import org.com.passdagon.model.Account;
@@ -147,27 +149,7 @@ public class MainController {
     Scene scene = new Scene(root);
     Stage stage = new Stage();
     stage.setScene(scene);
-
-    FXMLLoader lLoader = new FXMLLoader(getClass().getResource("request-password-view.fxml"));
-    Parent rRoot = lLoader.load();
-
-    Scene sScene = new Scene(rRoot);
-    Stage sStage = new Stage();
-    sStage.setScene(sScene);
-    sStage.show();
-
-    sStage.setOnCloseRequest(event -> {
-      System.out.println("returned");
-      if(LoginUtilities.validatePassword(LoginUtilities.password)) {
-        System.out.println("in if");
-        LoginUtilities.password = null;
-        stage.show();
-      } else {
-        LoginUtilities.password = null;
-      }
-
-
-    });
+    stage.show();
   }
 
 //  private Account filterAccountByAccountNameAndUsername(
@@ -194,6 +176,34 @@ private void loadRequestPasswordWindow() throws IOException, PasswordMismatchExc
   Stage stage = new Stage();
   stage.setScene(scene);
   stage.show();
+
+//  FXMLLoader loader = new FXMLLoader(getClass().getResource("request-password-view.fxml"));
+//  Parent rRoot = lLoader.load();
+//
+//  Scene sScene = new Scene(rRoot);
+//  Stage sStage = new Stage();
+//  sStage.setScene(sScene);
+//  sStage.show();
+
+  stage.setOnCloseRequest(event -> {
+    Alert alert = new Alert(Alert.AlertType.INFORMATION);
+    alert.setTitle("This alert closes in 1 second");
+    alert.setHeaderText(null);
+    alert.setContentText("This is a sample message.");
+    PauseTransition pause = new PauseTransition(Duration.seconds(1));
+    pause.setOnFinished(eEvent -> alert.close());
+    pause.play();
+    System.out.println("returned");
+    if(LoginUtilities.validatePassword(LoginUtilities.password)) {
+      System.out.println("in if");
+      LoginUtilities.password = null;
+      stage.show();
+    } else {
+      LoginUtilities.password = null;
+    }
+
+
+  });
 
   System.out.println("returned");
   if(!LoginUtilities.validatePassword(LoginUtilities.password)) {

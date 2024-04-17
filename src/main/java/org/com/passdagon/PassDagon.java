@@ -1,5 +1,6 @@
 package org.com.passdagon;
 
+import javafx.animation.PauseTransition;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
@@ -8,6 +9,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import javafx.util.Duration;
 import org.com.passdagon.model.User;
 import org.com.passdagon.utilities.LoginUtilities;
 
@@ -49,7 +51,6 @@ public class PassDagon extends Application {
         alert.setTitle("Close");
         alert.setHeaderText("You're about to quit");
         alert.setContentText("Any data saved will be used for authentication to your data");
-
         if(alert.showAndWait().get() == ButtonType.OK && !(User.getInstance().getPassword().isEmpty())) {
           try {
             event.consume();
