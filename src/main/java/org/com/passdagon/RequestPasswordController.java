@@ -48,20 +48,17 @@ public class RequestPasswordController implements Initializable {
   @FXML
   void checkPassword(ActionEvent event) {
 
-    Alert alert = new Alert(Alert.AlertType.INFORMATION);
-//    alert.setTitle("Authenticati");
-//    alert.setHeaderText("You're about to quit");
-    alert.setContentText("Authenticating...");
-    System.out.println("Password entered");
       if (LoginUtilities.validatePassword(passwordField.getText())) {
         System.out.println("true");
         LoginUtilities.password = passwordField.getText();
 //        ((Stage) requestPasswordAnchorPane.getScene().getWindow()).close();
       } else {
-        Alert aAlert = new Alert(Alert.AlertType.ERROR);
-        aAlert.setTitle("Error");
-        aAlert.setHeaderText("Wrong password");
-        aAlert.setContentText("Failed to authenticate try again.");
+        LoginUtilities.password = null;
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Error");
+        alert.setHeaderText("Wrong password");
+        alert.setContentText("Failed to authenticate try again.");
+        alert.showAndWait();
       }
   }
 
