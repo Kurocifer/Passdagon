@@ -26,9 +26,6 @@ public class PassDagon extends Application {
 
     Path homDir = Paths.get(System.getProperty("user.home"));
 
-    //SceneSwitchingController sceneSwitchingController = new SceneSwitchingController();
-
-    //File file = new File(homDir, ".passdagon/passdagon.vx");
     Path filePath = homDir.resolve(".passdagon").resolve("passdagon.vx");
 
     boolean exists = Files.exists(filePath);
@@ -68,25 +65,7 @@ public class PassDagon extends Application {
   }
 
   public static void main(String[] args) throws IOException {
-//    Path homDir = Paths.get(System.getProperty("user.home"));
-//
-//    SceneSwitchingController sceneSwitchingController = new SceneSwitchingController();
-//
-//    //File file = new File(homDir, ".passdagon/passdagon.vx");
-//    Path filePath = homDir.resolve(".passdagon").resolve("passdagon.vx");
-//
-//    boolean exists = Files.exists(filePath);
-
       launch();
-//     else {
-//      System.out.println("Could not find data file on your computer.!");
-//      System.out.println("It may have been moved to a different location in this case locate the file and move it " +
-//              "to the your home dir in a folder named .passdagon. file name should be passdagon.vx\n" +
-//              " This might also be your first time opening this software then you'll have to create a password.\n" +
-//              " This might be the only password you'll have to remember :)");
-//
-//      sceneSwitchingController.switchToSignInWindow(new ActionEvent());
-//    }
   }
 
   public void loadMainWindow(Stage stage) throws IOException {

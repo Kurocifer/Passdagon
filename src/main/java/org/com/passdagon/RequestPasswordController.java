@@ -49,8 +49,6 @@ public class RequestPasswordController implements Initializable {
   void checkPassword(ActionEvent event) {
 
     Alert alert = new Alert(Alert.AlertType.INFORMATION);
-//    alert.setTitle("Authenticati");
-//    alert.setHeaderText("You're about to quit");
     alert.setContentText("Authenticating...");
     System.out.println("Password entered");
       if (LoginUtilities.validatePassword(passwordField.getText())) {
