@@ -51,7 +51,7 @@ public class PassDagon extends Application {
         alert.setTitle("Close");
         alert.setHeaderText("You're about to quit");
         alert.setContentText("Any data saved will be used for authentication to your data");
-        if(alert.showAndWait().get() == ButtonType.OK && !(User.getInstance().getPassword().isEmpty())) {
+        if(alert.showAndWait().get() == ButtonType.OK && User.getInstance().getPassword() != null) {
           try {
             event.consume();
             stage.close();

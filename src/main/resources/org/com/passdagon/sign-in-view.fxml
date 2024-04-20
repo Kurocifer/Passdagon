@@ -7,10 +7,10 @@
 <?import javafx.scene.control.ToggleButton?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="410.0" prefWidth="637.0" style="-fx-border-color: black; -fx-border-width: 5;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.com.passdagon.SignInController">
+<AnchorPane fx:id="signInAnchorPane" prefHeight="410.0" prefWidth="637.0" style="-fx-border-color: black; -fx-border-width: 5;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.com.passdagon.SignInController">
    <children>
-      <Label layoutX="42.0" layoutY="259.0" prefHeight="16.0" prefWidth="36.0" text="Enter Password" />
-      <Label layoutX="36.0" layoutY="326.0" prefHeight="16.0" prefWidth="36.0" text="Confirm Password" />
+      <Label layoutX="42.0" layoutY="259.0" prefHeight="16.0" prefWidth="112.0" text="Enter Password:" />
+      <Label layoutX="36.0" layoutY="326.0" prefHeight="16.0" prefWidth="125.0" text="Confirm Password:" />
       <PasswordField fx:id="mainPasswordField" layoutX="168.0" layoutY="255.0" onKeyTyped="#mainPasswordFieldKeyTyped" prefHeight="24.0" prefWidth="398.0" />
       <PasswordField fx:id="confirmedPasswordField" layoutX="168.0" layoutY="322.0" onKeyTyped="#confirmPasswordFieldKeyTyped" prefHeight="24.0" prefWidth="398.0" />
       <Label fx:id="shownPassword" layoutX="168.0" layoutY="279.0" onKeyTyped="#mainPasswordFieldKeyTyped" text="Label" />

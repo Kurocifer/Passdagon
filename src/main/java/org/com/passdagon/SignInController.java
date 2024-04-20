@@ -6,6 +6,8 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.AnchorPane;
+import javafx.stage.Stage;
 import org.com.passdagon.exceptions.PasswordMismatchException;
 import org.com.passdagon.model.User;
 
@@ -40,10 +42,17 @@ public class SignInController implements Initializable {
 
   @FXML
   private TextArea textArea;
+  @FXML
+  private AnchorPane signInAnchorPane;
 
   @FXML
   void cancel(ActionEvent event) {
-
+    Alert alert = new Alert(Alert.AlertType.WARNING);
+    alert.setTitle("Warning");
+    alert.setHeaderText("Closing window");
+    alert.setContentText("Any operation done during this session will be lost");
+    if(alert.showAndWait().get() == ButtonType.OK)
+      ((Stage) signInAnchorPane.getScene().getWindow()).close();
   }
 
   @FXML
