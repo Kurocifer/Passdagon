@@ -136,34 +136,19 @@ private void loadRequestPasswordWindow() throws IOException, PasswordMismatchExc
   stage.show();
 
   stage.setOnCloseRequest(event -> {
-    Alert alert = new Alert(Alert.AlertType.INFORMATION);
-    alert.setTitle("This alert closes in 1 second");
-    alert.setHeaderText(null);
-    alert.setContentText("This is a sample message.");
-    PauseTransition pause = new PauseTransition(Duration.seconds(1));
-    pause.setOnFinished(eEvent -> alert.close());
-    pause.play();
     System.out.println("returned");
-    if(LoginUtilities.validatePassword(LoginUtilities.password)) {
+    if (LoginUtilities.validatePassword(LoginUtilities.password)) {
       System.out.println("in if");
       LoginUtilities.password = null;
-      stage.show();
+      try {
+        loadDetailsViewWindow();
+      } catch (IOException | PasswordMismatchException e) {
+        throw new RuntimeException(e);
+      }
     } else {
       LoginUtilities.password = null;
     }
-
-
   });
-
-  System.out.println("returned");
-  if(!LoginUtilities.validatePassword(LoginUtilities.password)) {
-    System.out.println("in if");
-    LoginUtilities.password = null;
-    throw new PasswordMismatchException();
-
-  }
-  LoginUtilities.password = null;
-  loadDetailsViewWindow();
 }
 
 }
