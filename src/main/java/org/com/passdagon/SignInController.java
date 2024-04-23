@@ -102,11 +102,11 @@ public class SignInController implements Initializable {
 
   @Override
   public void initialize(URL url, ResourceBundle resourceBundle) {
-    textArea.setText(" Could not find data file on your computer." +
-            "It may have been moved to a different location in this case locate the file and move it " +
-            "to the your home dir in a folder named .passdagon. file name should be passdagon.vx\n" +
-            " This might also be your first time opening this software then you'll have to create a password.\n" +
-            " This might be the only password you'll have to remember :)"
+    textArea.setText(" Could not find data file on your computer.\n" +
+            "It may have been moved to a different location in this case locate the file and move it \n" +
+            "to your home dir in a folder named .passdagon. file name should be passdagon.vx\n" +
+            "\nThis might also be your first time opening this software then you'll have to create a password.\n" +
+            "\nThis might be the only password you'll have to remember :)"
     );
 
     textArea.setEditable(false);

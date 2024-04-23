@@ -5,6 +5,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -27,8 +28,9 @@ import java.net.URL;
 import java.time.LocalDate;
 import java.util.Collections;
 import java.util.Optional;
+import java.util.ResourceBundle;
 
-public class MainController {
+public class MainController implements Initializable {
   @FXML
   private TableColumn<Account, String> accountColumn;
 
@@ -201,4 +203,8 @@ private void loadRequestPasswordWindow() throws IOException, PasswordMismatchExc
   });
 }
 
+  @Override
+  public void initialize(URL url, ResourceBundle resourceBundle) {
+    table();
+  }
 }

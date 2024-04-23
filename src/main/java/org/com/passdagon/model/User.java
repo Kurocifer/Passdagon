@@ -3,10 +3,11 @@ package org.com.passdagon.model;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class User {
+public class User implements Serializable {
 
   private static User userInstance;
   private String name;
@@ -60,6 +61,12 @@ public class User {
 
   public Account getNewAccount() {
     return account;
+  }
+
+  public void setStringPropertiesAfterReload() {
+    for (Account account : accounts) {
+      account.setAllStringPropertiesAfterReload();
+    }
   }
 
   @Override

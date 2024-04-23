@@ -2,23 +2,26 @@ package org.com.passdagon.model;
 
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
+import javafx.fxml.Initializable;
 
+import java.io.Serializable;
 import java.net.URL;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Locale;
 import java.util.Objects;
+import java.util.ResourceBundle;
 
-public class Account {
+public class Account implements Serializable, Initializable {
 
   private URL accountName;
   private String username;
   private String password;
   private LocalDate dateModified;
 
-  private StringProperty accountNameProperty;
-  private StringProperty usernameProperty;
-  private StringProperty dateModifiedProperty;
+  private transient StringProperty accountNameProperty;
+  private transient StringProperty usernameProperty;
+  private transient StringProperty dateModifiedProperty;
 
 
   public Account(URL accountName, String username, String password, LocalDate dateModified) {
@@ -80,6 +83,12 @@ public StringProperty usernamePropertyProperty() {
     return dateModifiedProperty;
   }
 
+  public void setAllStringPropertiesAfterReload() {
+    accountNameProperty = new SimpleStringProperty(accountName.toString());
+    usernameProperty = new SimpleStringProperty(username);
+    dateModifiedProperty = new SimpleStringProperty(dateModified.toString());
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
@@ -100,6 +109,19 @@ public StringProperty usernamePropertyProperty() {
             ", username='" + username + '\'' +
             ", password='" + password + '\'' +
             ", dateModified=" + dateModified +
+            ", accountNameProperty=" + accountNameProperty +
+            ", usernameProperty=" + usernameProperty +
+            ", dateModifiedProperty=" + dateModifiedProperty +
             '}';
+  }
+
+  @Override
+  public void initialize(URL url, ResourceBundle resourceBundle) {
+    if(accountNameProperty == null && usernameProperty == null && dateModifiedProperty == null) {
+
+      accountNameProperty = new SimpleStringProperty(accountName.toString());
+      usernameProperty = new SimpleStringProperty(username);
+      dateModifiedProperty = new SimpleStringProperty(dateModified.toString());
+    }
   }
 }

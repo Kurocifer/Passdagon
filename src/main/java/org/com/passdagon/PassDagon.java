@@ -1,23 +1,18 @@
 package org.com.passdagon;
 
-import javafx.animation.PauseTransition;
 import javafx.application.Application;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
-import javafx.util.Duration;
 import org.com.passdagon.model.User;
-import org.com.passdagon.utilities.LoginUtilities;
+import org.com.passdagon.persistence.Persistence;
 
 import java.nio.file.Files;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.Objects;
 
 public class PassDagon extends Application {
 
@@ -36,10 +31,10 @@ public class PassDagon extends Application {
       loadMainWindow(stage);
     } else {
       System.out.println("Could not find data file on your computer.!");
-      System.out.println("It may have been moved to a different location in this case locate the file and move it " +
+      System.out.println("It may have been moved to a different location in this case locate the file and move it\n" +
               "to the your home dir in a folder named .passdagon. file name should be passdagon.vx\n" +
-              " This might also be your first time opening this software then you'll have to create a password.\n" +
-              " This might be the only password you'll have to remember :)");
+              "\nThis might also be your first time opening this software then you'll have to create a password.\n" +
+              "This might be the only password you'll have to remember :)");
 
       FXMLLoader fxmlLoader = new FXMLLoader(PassDagon.class.getResource("sign-in-view.fxml"));
       Scene scene = new Scene(fxmlLoader.load());
@@ -61,6 +56,7 @@ public class PassDagon extends Application {
           }
         } else {
           event.consume();
+          stage.close();
         }
       });
 
@@ -68,31 +64,19 @@ public class PassDagon extends Application {
   }
 
   public static void main(String[] args) throws IOException {
-//    Path homDir = Paths.get(System.getProperty("user.home"));
-//
-//    SceneSwitchingController sceneSwitchingController = new SceneSwitchingController();
-//
-//    //File file = new File(homDir, ".passdagon/passdagon.vx");
-//    Path filePath = homDir.resolve(".passdagon").resolve("passdagon.vx");
-//
-//    boolean exists = Files.exists(filePath);
-
       launch();
-//     else {
-//      System.out.println("Could not find data file on your computer.!");
-//      System.out.println("It may have been moved to a different location in this case locate the file and move it " +
-//              "to the your home dir in a folder named .passdagon. file name should be passdagon.vx\n" +
-//              " This might also be your first time opening this software then you'll have to create a password.\n" +
-//              " This might be the only password you'll have to remember :)");
-//
-//      sceneSwitchingController.switchToSignInWindow(new ActionEvent());
-//    }
   }
 
   public void loadMainWindow(Stage stage) throws IOException {
+    System.out.println("Calling load method");
+    Persistence.load();
     FXMLLoader fxmlLoader = new FXMLLoader(PassDagon.class.getResource("main-scene.fxml"));
     Scene scene = new Scene(fxmlLoader.load());
     stage.setScene(scene);
     stage.show();
+
+    stage.setOnCloseRequest(event -> {
+      Persistence.save();
+    });
   }
 }
