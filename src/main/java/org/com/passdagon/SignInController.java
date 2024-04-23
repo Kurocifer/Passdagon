@@ -72,6 +72,11 @@ public class SignInController implements Initializable {
       String password = mainPasswordField.getText();
       User.getInstance().setPassword(password);
     } else {
+      Alert alert = new Alert(Alert.AlertType.ERROR);
+      alert.setTitle("Error");
+      alert.setHeaderText("Wrong password");
+      alert.setContentText("The two passwords provided must be the same");
+      alert.showAndWait();
       throw new PasswordMismatchException();
     }
   }
