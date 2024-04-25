@@ -10,9 +10,7 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
-import javafx.stage.Stage;
-import org.com.passdagon.model.User;
-import org.com.passdagon.utilities.LoginUtilities;
+import org.com.passdagon.utilities.PasswordUtilities;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -48,12 +46,12 @@ public class RequestPasswordController implements Initializable {
   @FXML
   void checkPassword(ActionEvent event) {
 
-      if (LoginUtilities.validatePassword(passwordField.getText())) {
+      if (PasswordUtilities.validatePassword(passwordField.getText())) {
         System.out.println("true");
-        LoginUtilities.password = passwordField.getText();
+        PasswordUtilities.password = passwordField.getText();
 //        ((Stage) requestPasswordAnchorPane.getScene().getWindow()).close();
       } else {
-        LoginUtilities.password = null;
+        PasswordUtilities.password = null;
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle("Error");
         alert.setHeaderText("Wrong password");

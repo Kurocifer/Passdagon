@@ -1,6 +1,5 @@
 package org.com.passdagon;
 
-import javafx.animation.PauseTransition;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -13,21 +12,17 @@ import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.event.ActionEvent;
 import javafx.stage.Stage;
-import javafx.util.Duration;
 import org.com.passdagon.exceptions.AccountNotPresentException;
 import org.com.passdagon.exceptions.PasswordMismatchException;
 import org.com.passdagon.model.Account;
 import org.com.passdagon.model.User;
 import org.com.passdagon.utilities.GeneralUtilities;
-import org.com.passdagon.utilities.LoginUtilities;
+import org.com.passdagon.utilities.PasswordUtilities;
 
 import java.io.IOException;
-import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.time.LocalDate;
-import java.util.Collections;
-import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class MainController implements Initializable {
@@ -189,16 +184,16 @@ private void loadRequestPasswordWindow() throws IOException, PasswordMismatchExc
 
   stage.setOnCloseRequest(event -> {
     System.out.println("returned");
-    if (LoginUtilities.validatePassword(LoginUtilities.password)) {
+    if (PasswordUtilities.validatePassword(PasswordUtilities.password)) {
       System.out.println("in if");
-      LoginUtilities.password = null;
+      PasswordUtilities.password = null;
       try {
         loadDetailsViewWindow();
       } catch (IOException | PasswordMismatchException e) {
         throw new RuntimeException(e);
       }
     } else {
-      LoginUtilities.password = null;
+      PasswordUtilities.password = null;
     }
   });
 }
