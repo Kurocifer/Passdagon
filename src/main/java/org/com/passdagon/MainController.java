@@ -22,6 +22,8 @@ import org.com.passdagon.utilities.PasswordUtilities;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.net.URL;
+import java.security.NoSuchAlgorithmException;
+import java.security.spec.InvalidKeySpecException;
 import java.time.LocalDate;
 import java.util.ResourceBundle;
 
@@ -184,16 +186,21 @@ private void loadRequestPasswordWindow() throws IOException, PasswordMismatchExc
 
   stage.setOnCloseRequest(event -> {
     System.out.println("returned");
-    if (PasswordUtilities.validatePassword(PasswordUtilities.password)) {
-      System.out.println("in if");
-      PasswordUtilities.password = null;
-      try {
-        loadDetailsViewWindow();
-      } catch (IOException | PasswordMismatchException e) {
-        throw new RuntimeException(e);
+    System.out.println("hashed password: " + PasswordUtilities.password);
+    try {
+      if (PasswordUtilities.verifyPassword(PasswordUtilities.password)) {
+        System.out.println("in if");
+        PasswordUtilities.password = null;
+        try {
+          loadDetailsViewWindow();
+        } catch (IOException | PasswordMismatchException e) {
+          throw new RuntimeException(e);
+        }
+      } else {
+        PasswordUtilities.password = null;
       }
-    } else {
-      PasswordUtilities.password = null;
+    } catch (NoSuchAlgorithmException | InvalidKeySpecException e) {
+      throw new RuntimeException(e);
     }
   });
 }

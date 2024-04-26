@@ -13,6 +13,8 @@ import javafx.scene.layout.AnchorPane;
 import org.com.passdagon.utilities.PasswordUtilities;
 
 import java.net.URL;
+import java.security.NoSuchAlgorithmException;
+import java.security.spec.InvalidKeySpecException;
 import java.util.ResourceBundle;
 
 public class RequestPasswordController implements Initializable {
@@ -44,13 +46,16 @@ public class RequestPasswordController implements Initializable {
   }
 
   @FXML
-  void checkPassword(ActionEvent event) {
+  void checkPassword(ActionEvent event) throws NoSuchAlgorithmException, InvalidKeySpecException {
 
-      if (PasswordUtilities.validatePassword(passwordField.getText())) {
+    String password = passwordField.getText();
+    System.out.println("hashed Password: " + PasswordUtilities.hashPassword(password));
+      if (PasswordUtilities.verifyPassword(PasswordUtilities.hashPassword(password))) {
         System.out.println("true");
-        PasswordUtilities.password = passwordField.getText();
+        PasswordUtilities.password = password;
 //        ((Stage) requestPasswordAnchorPane.getScene().getWindow()).close();
       } else {
+        System.out.println("false");
         PasswordUtilities.password = null;
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle("Error");
