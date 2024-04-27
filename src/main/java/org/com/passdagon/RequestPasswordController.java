@@ -46,14 +46,13 @@ public class RequestPasswordController implements Initializable {
   }
 
   @FXML
-  void checkPassword(ActionEvent event) throws NoSuchAlgorithmException, InvalidKeySpecException {
+  void checkPassword(ActionEvent event) {
 
-    String password = passwordField.getText();
-    System.out.println("hashed Password: " + PasswordUtilities.hashPassword(password));
-      if (PasswordUtilities.verifyPassword(PasswordUtilities.hashPassword(password))) {
+    try {
+      if (PasswordUtilities.validatePassword(passwordField.getText())) {
         System.out.println("true");
-        PasswordUtilities.password = password;
-//        ((Stage) requestPasswordAnchorPane.getScene().getWindow()).close();
+        PasswordUtilities.password = passwordField.getText();
+  //        ((Stage) requestPasswordAnchorPane.getScene().getWindow()).close();
       } else {
         System.out.println("false");
         PasswordUtilities.password = null;
@@ -63,6 +62,11 @@ public class RequestPasswordController implements Initializable {
         alert.setContentText("Failed to authenticate try again.");
         alert.showAndWait();
       }
+    } catch (NoSuchAlgorithmException | InvalidKeySpecException e) {
+      System.out.println("false");
+      System.out.println("Something went wrong :)");
+      throw new RuntimeException(e);
+    }
   }
 
 

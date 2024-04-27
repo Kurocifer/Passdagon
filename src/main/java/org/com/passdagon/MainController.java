@@ -188,7 +188,7 @@ private void loadRequestPasswordWindow() throws IOException, PasswordMismatchExc
     System.out.println("returned");
     System.out.println("hashed password: " + PasswordUtilities.password);
     try {
-      if (PasswordUtilities.verifyPassword(PasswordUtilities.password)) {
+      if (PasswordUtilities.validatePassword(PasswordUtilities.password)) {
         System.out.println("in if");
         PasswordUtilities.password = null;
         try {
