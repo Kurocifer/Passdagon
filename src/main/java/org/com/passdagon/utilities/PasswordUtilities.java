@@ -30,19 +30,29 @@ public class PasswordUtilities {
   }
 
   // Verification method (example)
-  public static boolean verifyPassword(String loginPassword) throws NoSuchAlgorithmException, InvalidKeySpecException {
-    // Extract salt and hash from storedHash (split using ":")
-    String[] parts = User.getInstance().getPassword().split(":");
-    byte[] salt = Base64.getDecoder().decode(parts[0]);
-    byte[] storedHashBytes = Base64.getDecoder().decode(parts[1]);
+//  public static boolean verifyPassword(String loginPassword) throws NoSuchAlgorithmException, InvalidKeySpecException {
+//    // Extract salt and hash from storedHash (split using ":")
+//    String[] parts = User.getInstance().getPassword().split(":");
+//    byte[] salt = Base64.getDecoder().decode(parts[0]);
+//    byte[] storedHashBytes = Base64.getDecoder().decode(parts[1]);
+//
+//    // Perform hashing on entered password using extracted salt
+//    KeySpec spec = new PBEKeySpec(password.toCharArray(), salt, 65536, 128);
+//    SecretKeyFactory factory = SecretKeyFactory.getInstance("PBKDF2WithHmacSHA1");
+//    byte[] generatedHash = factory.generateSecret(spec).getEncoded();
+//
+//    // Compare generated hash with stored hash
+//    password = hashPassword(loginPassword);
+//    return Arrays.equals(generatedHash, storedHashBytes);
+//  }
 
-    // Perform hashing on entered password using extracted salt
-    KeySpec spec = new PBEKeySpec(password.toCharArray(), salt, 65536, 128);
-    SecretKeyFactory factory = SecretKeyFactory.getInstance("PBKDF2WithHmacSHA1");
-    byte[] generatedHash = factory.generateSecret(spec).getEncoded();
 
-    // Compare generated hash with stored hash
-    password = hashPassword(loginPassword);
-    return Arrays.equals(generatedHash, storedHashBytes);
+  public static String password = null;
+  public static boolean validatePassword(String loginPassword) {
+    if(User.getInstance().getPassword().equals(loginPassword)) {
+      password = loginPassword;
+      return true;
+    }
+    return false;
   }
 }
