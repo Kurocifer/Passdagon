@@ -10,8 +10,11 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import org.com.passdagon.exceptions.PasswordMismatchException;
 import org.com.passdagon.model.User;
+import org.com.passdagon.utilities.PasswordUtilities;
 
 import java.net.URL;
+import java.security.NoSuchAlgorithmException;
+import java.security.spec.InvalidKeySpecException;
 import java.util.ResourceBundle;
 
 public class SignInController implements Initializable {
@@ -67,10 +70,10 @@ public class SignInController implements Initializable {
   }
 
   @FXML
-  void save(ActionEvent event) throws PasswordMismatchException {
+  void save(ActionEvent event) throws PasswordMismatchException, NoSuchAlgorithmException, InvalidKeySpecException {
     if(mainPasswordField.getText().equals(confirmedPasswordField.getText())) {
       String password = mainPasswordField.getText();
-      User.getInstance().setPassword(password);
+      User.getInstance().setPassword(PasswordUtilities.hashPassword(password));
     } else {
       Alert alert = new Alert(Alert.AlertType.ERROR);
       alert.setTitle("Error");

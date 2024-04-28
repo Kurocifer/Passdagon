@@ -10,11 +10,11 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
-import javafx.stage.Stage;
-import org.com.passdagon.model.User;
-import org.com.passdagon.utilities.LoginUtilities;
+import org.com.passdagon.utilities.PasswordUtilities;
 
 import java.net.URL;
+import java.security.NoSuchAlgorithmException;
+import java.security.spec.InvalidKeySpecException;
 import java.util.ResourceBundle;
 
 public class RequestPasswordController implements Initializable {
@@ -48,18 +48,25 @@ public class RequestPasswordController implements Initializable {
   @FXML
   void checkPassword(ActionEvent event) {
 
-      if (LoginUtilities.validatePassword(passwordField.getText())) {
+    try {
+      if (PasswordUtilities.validatePassword(passwordField.getText())) {
         System.out.println("true");
-        LoginUtilities.password = passwordField.getText();
-//        ((Stage) requestPasswordAnchorPane.getScene().getWindow()).close();
+        PasswordUtilities.password = passwordField.getText();
+  //        ((Stage) requestPasswordAnchorPane.getScene().getWindow()).close();
       } else {
-        LoginUtilities.password = null;
+        System.out.println("false");
+        PasswordUtilities.password = null;
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle("Error");
         alert.setHeaderText("Wrong password");
         alert.setContentText("Failed to authenticate try again.");
         alert.showAndWait();
       }
+    } catch (NoSuchAlgorithmException | InvalidKeySpecException e) {
+      System.out.println("false");
+      System.out.println("Something went wrong :)");
+      throw new RuntimeException(e);
+    }
   }
 
 
