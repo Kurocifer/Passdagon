@@ -64,34 +64,13 @@ public class MainController implements Initializable {
   public  void refresh(ActionEvent event) {
     System.out.println("in refresh: " + accounts);
 
-    //List<Account> fullaccounts = User.getInstance().getAccounts();
-//    accounts = User.getInstance().getAccounts();
-//
-//    Account newAccount = User.getInstance().getNewAccount();
-
-//    System.out.println(newAccount);
-//   // accounts.add(newAccount);
-//    System.out.println(accounts);
     table();
 
   }
 
   private void table() {
 
-//    accounts = FXCollections.observableArrayList();
-    //System.out.println("in refresh: " + accounts);
-
-    //List<Account> fullaccounts = User.getInstance().getAccounts();
-//    accounts = null;
-//    accounts = User.getInstance().getAccounts();
-
-//    Account newAccount = User.getInstance().getNewAccount();
-//    System.out.println("new account in table: " + newAccount);
-
-//    System.out.println(newAccount);
-    //accounts.add(newAccount);
     System.out.println("in table" + accounts);
-    //Collections.reverse(accounts);
     tableView.setItems(accounts);
     accountColumn.setCellValueFactory(f -> f.getValue().accountNameProperty());
     usernameColumn.setCellValueFactory(f -> f.getValue().usernameProperty());
@@ -127,7 +106,6 @@ public class MainController implements Initializable {
 
             loadRequestPasswordWindow();
           } catch (URISyntaxException | IOException | AccountNotPresentException | PasswordMismatchException ex) {
-            //System.out.println("Invalid URL: Account must be a valid URL");
             ex.printStackTrace();
           }
           System.out.println("id: " + id);
@@ -142,31 +120,12 @@ public class MainController implements Initializable {
     FXMLLoader loader = new FXMLLoader(getClass().getResource("account-details-view.fxml"));
     Parent root = loader.load();
 
-    //ShowAccountDetailsController showAccountDetailsController = loader.getController();
-    //showAccountDetailsController.setAll();
-
     Scene scene = new Scene(root);
     Stage stage = new Stage();
     stage.setScene(scene);
     stage.show();
   }
 
-//  private Account filterAccountByAccountNameAndUsername(
-//          URL accountName, String username,
-//          ObservableList<Account> accounts) throws AccountNotPresentException {
-//
-//    Optional<Account> filteredAccount = accounts.stream()
-//            .filter(account -> account.getAccountName().equals(accountName)
-//            && account.getUsername().equals(username))
-//            //.filter(account -> account.getUsername().equals(username))
-//            .findFirst();
-//
-//    if(filteredAccount.isPresent()) {
-//      return filteredAccount.get();
-//    } else {
-//      throw new AccountNotPresentException();
-//    }
-//  }
 private void loadRequestPasswordWindow() throws IOException, PasswordMismatchException {
   FXMLLoader loader = new FXMLLoader(getClass().getResource("request-password-view.fxml"));
   Parent root = loader.load();
@@ -176,13 +135,6 @@ private void loadRequestPasswordWindow() throws IOException, PasswordMismatchExc
   stage.setScene(scene);
   stage.show();
 
-//  FXMLLoader loader = new FXMLLoader(getClass().getResource("request-password-view.fxml"));
-//  Parent rRoot = lLoader.load();
-//
-//  Scene sScene = new Scene(rRoot);
-//  Stage sStage = new Stage();
-//  sStage.setScene(sScene);
-//  sStage.show();
 
   stage.setOnCloseRequest(event -> {
     System.out.println("returned");
