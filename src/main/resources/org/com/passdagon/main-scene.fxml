@@ -20,6 +20,7 @@
         <columns>
           <TableColumn fx:id="accountColumn" maxWidth="287.0" prefWidth="282.0" text="ACCOUNT NAME" />
           <TableColumn fx:id="usernameColumn" prefWidth="177.0" text="USERNAME" />
+            <TableColumn fx:id="descriptionColumn" prefWidth="178.0" text="DESCRIPTION" />
             <TableColumn fx:id="dateModifiedColumn" prefWidth="178.0" text="DATE MODIFIED" />
         </columns>
          <columnResizePolicy>

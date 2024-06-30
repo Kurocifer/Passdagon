@@ -11,15 +11,17 @@
 <AnchorPane prefHeight="401.0" prefWidth="645.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.com.passdagon.ShowAccountDetailsController">
    <children>
       <Label layoutX="47.0" layoutY="132.0" text="Account Name:" />
-      <Label layoutX="47.0" layoutY="196.0" text="username:" />
-      <Label fx:id="shownPassword" layoutX="159.0" layoutY="271.0" onKeyTyped="#passwordFieldKeyTyped" />
+      <Label layoutX="45.0" layoutY="263.0" text="username:" />
+      <Label fx:id="shownPassword" layoutX="159.0" layoutY="350.0" onKeyTyped="#passwordFieldKeyTyped" prefHeight="16.0" prefWidth="108.0" />
       <TextField fx:id="accountNameField" layoutX="159.0" layoutY="128.0" prefHeight="24.0" prefWidth="395.0" />
-      <TextField fx:id="usernameField" layoutX="159.0" layoutY="192.0" prefHeight="24.0" prefWidth="395.0" />
-      <ToggleButton fx:id="showPasswordToggleButton" layoutX="568.0" layoutY="247.0" mnemonicParsing="false" onAction="#togglePasswordVisibility" text="Show" />
-      <PasswordField fx:id="passwordField" layoutX="158.0" layoutY="247.0" onKeyTyped="#passwordFieldKeyTyped" prefHeight="24.0" prefWidth="401.0" />
-      <Label layoutX="54.0" layoutY="251.0" text="Password:" />
+      <TextField fx:id="usernameField" layoutX="159.0" layoutY="259.0" prefHeight="24.0" prefWidth="395.0" />
+      <ToggleButton fx:id="showPasswordToggleButton" layoutX="568.0" layoutY="326.0" mnemonicParsing="false" onAction="#togglePasswordVisibility" text="Show" />
+      <PasswordField fx:id="passwordField" layoutX="156.0" layoutY="326.0" onKeyTyped="#passwordFieldKeyTyped" prefHeight="24.0" prefWidth="401.0" />
+      <Label layoutX="49.0" layoutY="330.0" text="Password:" />
       <ToggleButton fx:id="setEditButton" layoutX="573.0" layoutY="37.0" mnemonicParsing="false" onAction="#editable" text="Edit" />
       <TextArea fx:id="dateModifiedTextArea" layoutX="20.0" layoutY="15.0" prefHeight="40.0" prefWidth="200.0" style="-fx-border-color: black; -fx-border-width: 3;" />
       <Button fx:id="saveButton" layoutX="436.0" layoutY="37.0" mnemonicParsing="false" onAction="#edit" text="Save" />
+      <Label layoutX="41.0" layoutY="201.0" text="Description:" />
+      <TextField fx:id="descriptionField" layoutX="160.0" layoutY="189.0" prefHeight="24.0" prefWidth="389.0" />
    </children>
 </AnchorPane>

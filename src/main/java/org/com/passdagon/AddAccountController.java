@@ -24,6 +24,9 @@ public class AddAccountController implements Initializable {
   private TextField accountNameField;
 
   @FXML
+  private TextField accountDescriptionField;
+
+  @FXML
   private AnchorPane addAccountScene;
 
   @FXML
@@ -66,6 +69,8 @@ public class AddAccountController implements Initializable {
 
     String password = passwordField.getText();
     String username = usernameField.getText();
+    String description = accountDescriptionField.getText();
+
     URL urlAccountName;
     String stringAccountName = accountNameField.getText();
 
@@ -76,7 +81,7 @@ public class AddAccountController implements Initializable {
       URI uri = new URI(stringAccountName);
       urlAccountName = uri.toURL();
 
-      account = new Account(urlAccountName, username, password, LocalDate.now());
+      account = new Account(urlAccountName, username, password, description, LocalDate.now());
 
       User.getInstance().setNewAccount(account);
       User.getInstance().addAccount(account);

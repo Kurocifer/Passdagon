@@ -15,12 +15,22 @@ public class User implements Serializable {
   private ObservableList<Account> accounts = FXCollections.observableArrayList();
   private Account account;
 
+  private String description;
+
   private User() {}
   public static User getInstance() {
     if(userInstance == null)
       userInstance = new User();
 
     return userInstance;
+  }
+
+  public String getDescription() {
+    return description;
+  }
+
+  public void setDescription(String description) {
+    this.description = description;
   }
   public String getName() {
     return name;

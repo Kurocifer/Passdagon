@@ -48,7 +48,8 @@ public class MainController implements Initializable {
 
   @FXML
   private TableColumn<Account, String> usernameColumn;
-
+  @FXML
+  private TableColumn<Account, String> descriptionColumn;
   SceneSwitchingController sceneSwitchingController = new SceneSwitchingController();
   public static ObservableList<Account> accounts = FXCollections.observableArrayList();
   private int myIndex;
@@ -75,6 +76,7 @@ public class MainController implements Initializable {
     accountColumn.setCellValueFactory(f -> f.getValue().accountNameProperty());
     usernameColumn.setCellValueFactory(f -> f.getValue().usernameProperty());
     dateModifiedColumn.setCellValueFactory(f -> f.getValue().dateModifiedProperty());
+    descriptionColumn.setCellValueFactory(f -> f.getValue().getDescriptionProperty());
 
     tableView.refresh();
 
@@ -87,6 +89,7 @@ public class MainController implements Initializable {
 
 
           id = String.valueOf(tableView.getItems().get(myIndex).getUsername());
+          String desc = String.valueOf(tableView.getItems().get(myIndex).getDescription());
           String ac = String.valueOf(tableView.getItems().get(myIndex).getAccountName());
           String  an = String.valueOf(tableView.getItems().get(myIndex).getDateModified());
 
@@ -99,7 +102,7 @@ public class MainController implements Initializable {
 
             String pass = GeneralUtilities.filterAccountByAccountNameAndUsername(url, id, accounts)
                             .getPassword();
-            Account account = new Account(url, id, pass, LocalDate.parse(an));
+            Account account = new Account(url, id, pass, desc, LocalDate.parse(an));
 
             System.out.println("down");
             User.getInstance().setNewAccount(account);

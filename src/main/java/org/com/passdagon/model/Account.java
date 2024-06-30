@@ -17,22 +17,26 @@ public class Account implements Serializable, Initializable {
   private URL accountName;
   private String username;
   private String password;
+  private String description;
   private LocalDate dateModified;
 
   private transient StringProperty accountNameProperty;
   private transient StringProperty usernameProperty;
   private transient StringProperty dateModifiedProperty;
+  private transient StringProperty descriptionProperty;
 
 
-  public Account(URL accountName, String username, String password, LocalDate dateModified) {
+  public Account(URL accountName, String username, String password, String description, LocalDate dateModified) {
     this.accountName = accountName;
     this.username = username;
     this.password = password;
     this.dateModified = dateModified;
+    this.description = description;
 
     accountNameProperty = new SimpleStringProperty(accountName.toString());
     usernameProperty = new SimpleStringProperty(username);
     dateModifiedProperty = new SimpleStringProperty(dateModified.toString());
+    descriptionProperty = new SimpleStringProperty(description);
 
   }
 
@@ -42,6 +46,14 @@ public class Account implements Serializable, Initializable {
 
   public void setAccountName(URL accountName) {
     this.accountName = accountName;
+  }
+
+  public String getDescription() {
+    return description;
+  }
+
+  public void setDescription(String description) {
+    this.description = description;
   }
 
   public String getUsername() {
@@ -83,10 +95,14 @@ public StringProperty usernamePropertyProperty() {
     return dateModifiedProperty;
   }
 
+  public StringProperty getDescriptionProperty() {
+    return descriptionProperty;
+  }
   public void setAllStringPropertiesAfterReload() {
     accountNameProperty = new SimpleStringProperty(accountName.toString());
     usernameProperty = new SimpleStringProperty(username);
     dateModifiedProperty = new SimpleStringProperty(dateModified.toString());
+    descriptionProperty = new SimpleStringProperty(description);
   }
 
   @Override

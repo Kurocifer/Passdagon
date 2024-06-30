@@ -33,6 +33,10 @@ public class ShowAccountDetailsController implements Initializable {
 
   @FXML
   private TextField usernameField;
+
+  @FXML
+  private TextField descriptionField;
+
   @FXML
   private Label shownPassword;
 
@@ -103,8 +107,7 @@ public class ShowAccountDetailsController implements Initializable {
 
 
     makeFieldsEditable(false);
-    usernameField.setEditable(false);
-    dateModifiedTextArea.setEditable(false);
+
 //    System.out.println("in initailisavle - URL, resourceBundle: " + url +  resourceBundle);
 
 
@@ -112,6 +115,7 @@ public class ShowAccountDetailsController implements Initializable {
     accountNameField.setText(account.getAccountName().toString());
     usernameField.setText(account.getUsername());
     passwordField.setText(account.getPassword());
+    descriptionField.setText(account.getDescription());
     dateModifiedTextArea.setText("Date modified: " + account.getDateModified());
     shownPassword.setVisible(false);
 
@@ -122,6 +126,8 @@ public class ShowAccountDetailsController implements Initializable {
     passwordField.setEditable(b);
     accountNameField.setEditable(b);
     usernameField.setEditable(b);
+    dateModifiedTextArea.setEditable(b);
+    descriptionField.setEditable(b);
   }
 
   @FXML
@@ -132,10 +138,12 @@ public class ShowAccountDetailsController implements Initializable {
     System.out.println("account: " + account);
 
     URL editedAccountName = GeneralUtilities.stringToURL(accountNameField.getText());
+    String editedDescription = descriptionField.getText();
     String EditedUsername = usernameField.getText();
     String editedPassword = passwordField.getText();
 
-    Account editedAccount = new Account(editedAccountName, EditedUsername, EditedUsername, LocalDate.now());
+    Account editedAccount = new Account(
+            editedAccountName, EditedUsername, EditedUsername, editedDescription, LocalDate.now());
 
 
     int indexOfAccountToEdit = MainController.accounts.indexOf(account);
