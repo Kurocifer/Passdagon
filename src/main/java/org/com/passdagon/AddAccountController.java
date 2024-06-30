@@ -82,14 +82,13 @@ public class AddAccountController implements Initializable {
       User.getInstance().addAccount(account);
       MainController.accounts.add(account);
     } catch (URISyntaxException | MalformedURLException ex) {
-      System.out.println("Invalid URL: Account Name must be a valid URL");
+      System.out.println("Invalid URL: Account Name must be in a valid URL format");
       ex.printStackTrace();
     }
 
     stage = (Stage) addAccountScene.getScene().getWindow();
     System.out.println("close");
     stage.close();
-
   }
 
   @Override

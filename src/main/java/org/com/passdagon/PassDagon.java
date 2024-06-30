@@ -20,7 +20,7 @@ public class PassDagon extends Application {
   public void start(Stage stage) throws IOException {
 
     Path homDir = Paths.get(System.getProperty("user.home"));
-    
+
     Path filePath = homDir.resolve(".passdagon").resolve("passdagon.vx");
 
     boolean exists = Files.exists(filePath);
@@ -29,7 +29,7 @@ public class PassDagon extends Application {
     } else {
       System.out.println("Could not find data file on your computer.!");
       System.out.println("It may have been moved to a different location in this case locate the file and move it\n" +
-              "to the your home dir in a folder named .passdagon. file name should be passdagon.vx\n" +
+              "to the your home dir in a folder named '.passdagon'. file name should be passdagon.vx\n" +
               "\nThis might also be your first time opening this software then you'll have to create a password.\n" +
               "This might be the only password you'll have to remember :)");
 
