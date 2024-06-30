@@ -26,7 +26,7 @@ public class Account implements Serializable, Initializable {
   private transient StringProperty descriptionProperty;
 
 
-  public Account(URL accountName, String username, String password, String description, LocalDate dateModified) {
+  public Account(URL accountName,  String username, String password, String description, LocalDate dateModified) {
     this.accountName = accountName;
     this.username = username;
     this.password = password;

@@ -7,6 +7,7 @@ import javafx.scene.control.*;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.event.ActionEvent;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import org.com.passdagon.model.Account;
 import org.com.passdagon.model.User;
@@ -67,6 +68,10 @@ public class AddAccountController implements Initializable {
   @FXML
   void saveAccount(ActionEvent event) {
 
+    // check that the fields aren't null
+
+    Stage stage1 = (Stage) addAccountScene.getScene().getWindow();
+
     String password = passwordField.getText();
     String username = usernameField.getText();
     String description = accountDescriptionField.getText();
@@ -75,7 +80,7 @@ public class AddAccountController implements Initializable {
     String stringAccountName = accountNameField.getText();
 
     try {
-      if(!stringAccountName.contains("https://"))
+      if (!stringAccountName.contains("https://"))
         stringAccountName = "https://" + stringAccountName;
 
       URI uri = new URI(stringAccountName);
@@ -94,6 +99,7 @@ public class AddAccountController implements Initializable {
     stage = (Stage) addAccountScene.getScene().getWindow();
     System.out.println("close");
     stage.close();
+
   }
 
   @Override
